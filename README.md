@@ -1,27 +1,33 @@
-
 # XGBoost Lab
 
-## Objective
+## Introduction
 
 In this lab, we'll install the popular [XGBoost Library](http://xgboost.readthedocs.io/en/latest/index.html) and explore how to use this popular boosting model to classify different types of wine using the [Wine Quality Dataset](https://archive.ics.uci.edu/ml/datasets/wine+quality) from the UCI Machine Learning Dataset Repository.  In this lesson, we'll install XGBoost on our machines, and then we'll use it make some classifications on the **_Wine Quality Dataset_**!
 
+## Objectives
+
+You will be able to:
+
+* Understand the general difference between XGBoost and other ensemble algorithms such as AdaBoost
+* Install and use XGboost
+
 ### Step 1: Install XGBoost
 
-The XGBoost model is not currently included in scikit-learn, so we'll have to install it on our own.  To install XGBoost, you'll need to use conda. 
+The XGBoost model is not currently included in scikit-learn, so we'll have to install it on our own.  To install XGBoost, you'll need to use conda.
 
 To install XGBoost, follow these steps:
 
 1. Open up a new terminal window.
 2. Activate your conda environment
-3. Run `conda install py-xgboost`. You must use conda to install this package--currently, it cannot be installed using `pip`. 
-4. Once installation has completed, run the cell below to verify that everything worked. 
+3. Run `conda install py-xgboost`. You must use conda to install this package--currently, it cannot be installed using `pip`.
+4. Once installation has completed, run the cell below to verify that everything worked.
 
 
 ```python
 import xgboost as xgb
 ```
 
-Run the cell below to import everything we'll need for this lab. 
+Run the cell below to import everything we'll need for this lab.
 
 
 ```python
@@ -38,7 +44,7 @@ from sklearn.model_selection import GridSearchCV
 
 The dataset we'll be using for this lab is currently stored in the file `winequality-red.csv`.  
 
-In the cell below, use pandas to import the dataset into a dataframe, and inspect the head of the dataframe to ensure everything loaded correctly. 
+In the cell below, use pandas to import the dataset into a dataframe, and inspect the head of the dataframe to ensure everything loaded correctly.
 
 
 ```python
@@ -47,7 +53,7 @@ df = None
 
 For this lab, our target variable will be `quality` .  That makes this a multiclass classification problem. Given the data in the columns from `fixed_acidity` through `alcohol`, we'll predict the `quality` of the wine.  
 
-This means that we need to store our target variable separately from the dataset, and then split the data and labels into training and testing sets that we can use for cross-validation. 
+This means that we need to store our target variable separately from the dataset, and then split the data and labels into training and testing sets that we can use for cross-validation.
 
 In the cell below:
 
@@ -84,7 +90,7 @@ print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
 
 ### Tuning XGBoost
 
-Our model had somewhat lackluster performance on the testing set compared to the training set, suggesting the model is beginning to overfit the training data.  Let's tune the model to increase the model performance and prevent overfitting. 
+Our model had somewhat lackluster performance on the testing set compared to the training set, suggesting the model is beginning to overfit the training data.  Let's tune the model to increase the model performance and prevent overfitting.
 
 For a full list of model parameters, see the [XGBoost Documentation](http://xgboost.readthedocs.io/en/latest/parameter.html).
 
@@ -117,8 +123,8 @@ Now, in the cell below:
     * `n_jobs=1`
 * Fit our `grid_clf` object and pass in `X_train` and `y_train`
 * Store the best parameter combination found by the grid search in `best_parameters`. You can find these inside the Grid Search object's `.best_params_` attribute.
-* Use `grid_clf` to create predictions for the training and testing sets, and store them in separate variables. 
-* Compute the accuracy score for the training and testing predictions. 
+* Use `grid_clf` to create predictions for the training and testing sets, and store them in separate variables.
+* Compute the accuracy score for the training and testing predictions.
 
 
 ```python
