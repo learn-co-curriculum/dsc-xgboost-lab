@@ -1,3 +1,4 @@
+
 # XGBoost Lab
 
 ## Introduction
@@ -11,24 +12,23 @@ You will be able to:
 * Understand the general difference between XGBoost and other ensemble algorithms such as AdaBoost
 * Install and use XGboost
 
+## Install XGBoost
 
-### Step 1: Install XGBoost
-
-The XGBoost model is not currently included in scikit-learn, so we'll have to install it on our own.  To install XGBoost, you'll need to use conda.
+The XGBoost model is not currently included in scikit-learn, so we'll have to install it on our own.  To install XGBoost, you'll need to use conda. 
 
 To install XGBoost, follow these steps:
 
 1. Open up a new terminal window.
 2. Activate your conda environment
-3. Run `conda install py-xgboost`. You must use conda to install this package--currently, it cannot be installed using `pip`.
-4. Once installation has completed, run the cell below to verify that everything worked.
+3. Run `conda install py-xgboost`. You must use conda to install this package--currently, it cannot be installed using `pip`. 
+4. Once installation has completed, run the cell below to verify that everything worked. 
 
 
 ```python
 import xgboost as xgb
 ```
 
-Now, run the cell below to import everything we'll need for this lab.
+Now, run the cell below to import everything we'll need for this lab. 
 
 
 ```python
@@ -47,7 +47,7 @@ warnings.filterwarnings('ignore')
 
 The dataset we'll be using for this lab is currently stored in the file `winequality-red.csv`.  
 
-In the cell below, use pandas to import the dataset into a dataframe, and inspect the head of the dataframe to ensure everything loaded correctly.
+In the cell below, use pandas to import the dataset into a dataframe, and inspect the head of the dataframe to ensure everything loaded correctly. 
 
 
 ```python
@@ -174,7 +174,7 @@ df.head()
 
 For this lab, our target variable will be `quality` .  That makes this a multiclass classification problem. Given the data in the columns from `fixed_acidity` through `alcohol`, we'll predict the `quality` of the wine.  
 
-This means that we need to store our target variable separately from the dataset, and then split the data and labels into training and testing sets that we can use for cross-validation.
+This means that we need to store our target variable separately from the dataset, and then split the data and labels into training and testing sets that we can use for cross-validation. 
 
 In the cell below:
 
@@ -211,11 +211,11 @@ print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
 
     Training Accuracy: 80.9%
     Validation accuracy: 63.25%
+    
 
+## Tuning XGBoost
 
-### Tuning XGBoost
-
-Our model had somewhat lackluster performance on the testing set compared to the training set, suggesting the model is beginning to overfit the training data.  Let's tune the model to increase the model performance and prevent overfitting.
+Our model had somewhat lackluster performance on the testing set compared to the training set, suggesting the model is beginning to overfit the training data.  Let's tune the model to increase the model performance and prevent overfitting. 
 
 For a full list of model parameters, see the[XGBoost Documentation](http://xgboost.readthedocs.io/en/latest/parameter.html).
 
@@ -272,19 +272,19 @@ print("Training Accuracy: {:.4}%".format(training_accuracy * 100))
 print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
 ```
 
-    Grid Search found the following optimal parameters:
+    Grid Search found the following optimal parameters: 
     learning_rate: 0.1
     max_depth: 6
     min_child_weight: 10
     n_estimators: 30
     subsample: 0.7
-
+    
     Training Accuracy: 75.73%
     Validation accuracy: 77.0%
-
+    
 
 That's a big improvement! You should see that your accuracy has increased by 10-15%, as well as no more signs of the model overfitting.
 
-## Conclusion
+## Summary
 
 Great! We've now successfully made use of one of the most powerful Boosting models in data science for modeling.  We've also learned how to tune the model for better performance using the Grid Search methodology we learned previously.  XGBoost is a powerful modeling tool to have in your arsenal.  Don't be afraid to experiment with it when modeling.
