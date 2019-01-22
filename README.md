@@ -1,5 +1,5 @@
 
-# XGBoost Lab
+# XGBoost - Lab
 
 ## Introduction
 
