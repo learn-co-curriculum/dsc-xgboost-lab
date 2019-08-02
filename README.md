@@ -28,6 +28,12 @@ To install XGBoost, follow these steps:
 import xgboost as xgb
 ```
 
+
+```python
+# __SOLUTION__ 
+import xgboost as xgb
+```
+
 Run the cell below to import everything we'll need for this lab. 
 
 
@@ -43,6 +49,22 @@ from sklearn.model_selection import GridSearchCV
 %matplotlib inline
 ```
 
+
+```python
+# __SOLUTION__ 
+import pandas as pd
+import numpy as np
+np.random.seed(0)
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import GridSearchCV
+import warnings
+warnings.filterwarnings('ignore')
+%matplotlib inline
+```
+
 The dataset we'll be using for this lab is currently stored in the file `winequality-red.csv`.  
 
 In the cell below, use pandas to import the dataset into a dataframe, and inspect the head of the dataframe to ensure everything loaded correctly. 
@@ -51,6 +73,130 @@ In the cell below, use pandas to import the dataset into a dataframe, and inspec
 ```python
 df = None
 ```
+
+
+```python
+# __SOLUTION__ 
+df = pd.read_csv('winequality-red.csv')
+df.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fixed acidity</th>
+      <th>volatile acidity</th>
+      <th>citric acid</th>
+      <th>residual sugar</th>
+      <th>chlorides</th>
+      <th>free sulfur dioxide</th>
+      <th>total sulfur dioxide</th>
+      <th>density</th>
+      <th>pH</th>
+      <th>sulphates</th>
+      <th>alcohol</th>
+      <th>quality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7.4</td>
+      <td>0.70</td>
+      <td>0.00</td>
+      <td>1.9</td>
+      <td>0.076</td>
+      <td>11.0</td>
+      <td>34.0</td>
+      <td>0.9978</td>
+      <td>3.51</td>
+      <td>0.56</td>
+      <td>9.4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.8</td>
+      <td>0.88</td>
+      <td>0.00</td>
+      <td>2.6</td>
+      <td>0.098</td>
+      <td>25.0</td>
+      <td>67.0</td>
+      <td>0.9968</td>
+      <td>3.20</td>
+      <td>0.68</td>
+      <td>9.8</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7.8</td>
+      <td>0.76</td>
+      <td>0.04</td>
+      <td>2.3</td>
+      <td>0.092</td>
+      <td>15.0</td>
+      <td>54.0</td>
+      <td>0.9970</td>
+      <td>3.26</td>
+      <td>0.65</td>
+      <td>9.8</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11.2</td>
+      <td>0.28</td>
+      <td>0.56</td>
+      <td>1.9</td>
+      <td>0.075</td>
+      <td>17.0</td>
+      <td>60.0</td>
+      <td>0.9980</td>
+      <td>3.16</td>
+      <td>0.58</td>
+      <td>9.8</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7.4</td>
+      <td>0.70</td>
+      <td>0.00</td>
+      <td>1.9</td>
+      <td>0.076</td>
+      <td>11.0</td>
+      <td>34.0</td>
+      <td>0.9978</td>
+      <td>3.51</td>
+      <td>0.56</td>
+      <td>9.4</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 For this lab, our target variable will be `quality` .  That makes this a multiclass classification problem. Given the data in the columns from `fixed_acidity` through `alcohol`, we'll predict the `quality` of the wine.  
 
@@ -72,6 +218,17 @@ scaled_df = None
 X_train, X_test, y_train, y_test = None
 ```
 
+
+```python
+# __SOLUTION__ 
+labels = df['quality']
+labels_removed_df = df.drop('quality', axis=1, inplace=False)
+scaler = StandardScaler()
+scaled_df = scaler.fit_transform(labels_removed_df)
+
+X_train, X_test, y_train, y_test = train_test_split(scaled_df, labels)
+```
+
 Now that we have prepared our data for modeling, we can use XGBoost to build a model that can accurately classify wine quality based on the features of the wine!
 
 The API for xgboost is purposefully written to mirror the same structure as other models in scikit-learn.  
@@ -88,6 +245,24 @@ val_accuracy = None
 print("Training Accuracy: {:.4}%".format(training_accuracy * 100))
 print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
 ```
+
+
+```python
+# __SOLUTION__ 
+clf = xgb.XGBClassifier()
+clf.fit(X_train, y_train)
+training_preds = clf.predict(X_train)
+val_preds = clf.predict(X_test)
+training_accuracy = accuracy_score(y_train, training_preds)
+val_accuracy = accuracy_score(y_test, val_preds)
+
+print("Training Accuracy: {:.4}%".format(training_accuracy * 100))
+print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
+```
+
+    Training Accuracy: 80.9%
+    Validation accuracy: 63.25%
+
 
 ## Tuning XGBoost
 
@@ -109,6 +284,18 @@ param_grid = {
     'min_child_weight': None,
     'subsample': None,
     'n_estimators': None,
+}
+```
+
+
+```python
+# __SOLUTION__ 
+param_grid = {
+    "learning_rate": [0.1],
+    'max_depth': [6],
+    'min_child_weight': [10],
+    'subsample': [ 0.7],
+    'n_estimators': [5, 30, 100, 250],
 }
 ```
 
@@ -147,6 +334,39 @@ print("")
 print("Training Accuracy: {:.4}%".format(training_accuracy * 100))
 print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
 ```
+
+
+```python
+# __SOLUTION__ 
+grid_clf = GridSearchCV(clf, param_grid, scoring='accuracy', cv=None, n_jobs=1)
+grid_clf.fit(scaled_df, labels)
+
+best_parameters = grid_clf.best_params_
+
+print("Grid Search found the following optimal parameters: ")
+for param_name in sorted(best_parameters.keys()):
+    print("%s: %r" % (param_name, best_parameters[param_name]))
+
+training_preds = grid_clf.predict(X_train)
+val_preds = grid_clf.predict(X_test)
+training_accuracy = accuracy_score(y_train, training_preds)
+val_accuracy = accuracy_score(y_test, val_preds)
+
+print("")
+print("Training Accuracy: {:.4}%".format(training_accuracy * 100))
+print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
+```
+
+    Grid Search found the following optimal parameters: 
+    learning_rate: 0.1
+    max_depth: 6
+    min_child_weight: 10
+    n_estimators: 30
+    subsample: 0.7
+    
+    Training Accuracy: 75.73%
+    Validation accuracy: 77.0%
+
 
 That's a big improvement! You should see that your accuracy has increased by 10-15%, as well as no more signs of the model overfitting.  
 
