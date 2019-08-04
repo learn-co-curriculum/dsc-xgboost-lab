@@ -12,7 +12,7 @@ You will be able to:
 * Understand the general difference between XGBoost and other ensemble algorithms such as AdaBoost
 * Install and use XGboost
 
-## Install XGBoost
+## Installing XGBoost
 
 The XGBoost model is not currently included in scikit-learn, so we'll have to install it on our own.  To install XGBoost, you'll need to use conda. 
 
@@ -28,7 +28,7 @@ To install XGBoost, follow these steps:
 import xgboost as xgb
 ```
 
-Now, run the cell below to import everything we'll need for this lab. 
+Run the cell below to import everything we'll need for this lab. 
 
 
 ```python
@@ -217,7 +217,7 @@ print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
 
 Our model had somewhat lackluster performance on the testing set compared to the training set, suggesting the model is beginning to overfit the training data.  Let's tune the model to increase the model performance and prevent overfitting. 
 
-For a full list of model parameters, see the[XGBoost Documentation](http://xgboost.readthedocs.io/en/latest/parameter.html).
+For a full list of model parameters, see the [XGBoost Documentation](http://xgboost.readthedocs.io/en/latest/parameter.html).
 
 Many of the parameters we'll be tuning are parameters we've already encountered when working with Decision Trees, Random Forests, and Gradient Boosted Trees.  
 
@@ -236,20 +236,20 @@ param_grid = {
 }
 ```
 
-Now that we have constructed our params dictionary, create a GridSearchCV object in the cell below and use it to iterate tune our XGBoost model.
+Now that we have constructed our `params` dictionary, create a `GridSearchCV` object in the cell below and use it to iterate tune our XGBoost model.  
 
 Now, in the cell below:
 
-* Create a GridSearchCV object. Pass in the following parameters:
+* Create a `GridSearchCV` object. Pass in the following parameters:
     * `clf`, our classifier
     * `param_grid`, the dictionary of parameters we're going to grid search through
     * `scoring='accuracy'`
     * `cv=None`
     * `n_jobs=1`
 * Fit our `grid_clf` object and pass in `X_train` and `y_train`
-* Store the best parameter combination found by the grid search in best_parameters. You can find these inside the Grid Search object's `.best_params_` attribute.
-* Use `grid_clf` to create predictions for the training and testing sets, and store them in separate variables.
-* Compute the accuracy score for the training and testing predictions.
+* Store the best parameter combination found by the grid search in `best_parameters`. You can find these inside the Grid Search object's `.best_params_` attribute.
+* Use `grid_clf` to create predictions for the training and testing sets, and store them in separate variables. 
+* Compute the accuracy score for the training and testing predictions. 
 
 
 ```python
@@ -280,10 +280,10 @@ print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
     subsample: 0.7
     
     Training Accuracy: 75.73%
-    Validation accuracy: 77.0%
+    Validation accuracy: 77.75%
 
 
-That's a big improvement! You should see that your accuracy has increased by 10-15%, as well as no more signs of the model overfitting.
+That's a big improvement! You should see that your accuracy has increased by 10-15%, as well as no more signs of the model overfitting.  
 
 ## Summary
 
