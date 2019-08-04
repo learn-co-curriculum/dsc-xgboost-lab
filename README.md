@@ -365,7 +365,7 @@ print("Validation accuracy: {:.4}%".format(val_accuracy * 100))
     subsample: 0.7
     
     Training Accuracy: 75.73%
-    Validation accuracy: 77.0%
+    Validation accuracy: 77.75%
 
 
 That's a big improvement! You should see that your accuracy has increased by 10-15%, as well as no more signs of the model overfitting.  
