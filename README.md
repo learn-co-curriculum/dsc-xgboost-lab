@@ -37,7 +37,6 @@ import numpy as np
 np.random.seed(0)
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
 %matplotlib inline
@@ -59,15 +58,12 @@ This means that we need to store our target variable separately from the dataset
 In the cell below:
 
 * Store the `quality` column in the `labels` variable and then remove the column from our dataset.  
-* Create a `StandardScaler` object and scale the data using the `fit_transform()` method.
 * Split the data into training and testing sets using the appropriate method from sklearn.  
 
 
 ```python
 labels = None
 labels_removed_df = None
-scaler = None
-scaled_df = None
 
 X_train, X_test, y_train, y_test = None
 ```
