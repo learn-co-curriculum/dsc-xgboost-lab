@@ -20,7 +20,7 @@ To install XGBoost, follow these steps:
 1. Open up a new terminal window 
 2. Activate your conda environment
 3. Run `conda install py-xgboost`. You must use `conda` to install this package -- currently, it cannot be installed using `pip`  
-4. Once installation has completed, run the cell below to verify that everything worked 
+4. Once the installation has completed, run the cell below to verify that everything worked 
 
 
 ```python
@@ -96,7 +96,7 @@ print('Validation accuracy: {:.4}%'.format(test_accuracy * 100))
 
 ## Tuning XGBoost
 
-The model had somewhat lackluster performance on the test set compared to the training set, suggesting the model is beginning to overfit to the training data. Let's tune the model to increase the model performance and prevent overfitting. 
+The model had a somewhat lackluster performance on the test set compared to the training set, suggesting the model is beginning to overfit to the training data. Let's tune the model to increase the model performance and prevent overfitting. 
 
 You've already encountered a lot of parameters when working with Decision Trees, Random Forests, and Gradient Boosted Trees.
 
@@ -117,7 +117,7 @@ param_grid = {
 }
 ```
 
-Now that we have constructed our `params` dictionary, create a `GridSearchCV` object in the cell below and use it to iterate tune our XGBoost model.  
+Now that we have constructed our `params` dictionary, create a `GridSearchCV` object in the cell below and use it to iteratively tune our XGBoost model.  
 
 Now, in the cell below:
 
