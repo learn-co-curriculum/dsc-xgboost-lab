@@ -1,4 +1,3 @@
-
 # XGBoost - Lab
 
 ## Introduction
@@ -12,6 +11,8 @@ You will be able to:
 - Fit, tune, and evaluate an XGBoost algorithm
 
 ## Installing XGBoost
+
+Run this lab on your local computer.
 
 The XGBoost model is not currently included in scikit-learn, so we'll have to install it on our own.  To install XGBoost, you'll need to use `conda`. 
 
