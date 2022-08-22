@@ -20,7 +20,7 @@ To install XGBoost, follow these steps:
 
 1. Open up a new terminal window 
 2. Activate your conda environment
-3. Run `conda install py-xgboost`. You must use `conda` to install this package -- currently, it cannot be installed using `pip`  
+3. Run `conda install xgboost`. You must use `conda` to install this package -- currently, it cannot be installed using `pip`  
 4. Once the installation has completed, run the cell below to verify that everything worked 
 
 
@@ -39,14 +39,17 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 import warnings
 warnings.filterwarnings('ignore')
 %matplotlib inline
 ```
 
+### Loading the Data
+
 The dataset we'll be using for this lab is currently stored in the file `'winequality-red.csv'`.  
 
-In the cell below, use Pandas to import the dataset into a dataframe, and inspect the `.head()` of the dataframe to ensure everything loaded correctly. 
+In the cell below, use pandas to import the dataset into a dataframe, and inspect the `.head()` of the dataframe to ensure everything loaded correctly. 
 
 
 ```python
@@ -56,6 +59,8 @@ df = None
 For this lab, our target column will be `'quality'`.  That makes this a multiclass classification problem. Given the data in the columns from `'fixed_acidity'` through `'alcohol'`, we'll predict the quality of the wine.  
 
 This means that we need to store our target variable separately from the dataset, and then split the data and labels into training and test sets that we can use for cross-validation. 
+
+### Splitting the Data
 
 In the cell below:
 
@@ -71,9 +76,42 @@ X = None
 X_train, X_test, y_train, y_test = None
 ```
 
+### Preprocessing the Data
+
+These are the current target values:
+
+
+```python
+y_train.value_counts().sort_index()
+```
+
+XGBoost requires that classification categories be integers that count up from 0, not starting at 3. Therefore you should instantiate a `LabelEncoder` ([documentation here](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html)) and convert both `y_train` and `y_test` into arrays containing label encoded values (i.e. integers that count up from 0).
+
+
+```python
+# Instantiate the encoder
+encoder = None
+
+# Fit and transform the training data
+
+
+# Transform the test data
+
+```
+
+Confirm that the new values start at 0 instead of 3:
+
+
+```python
+# Your code here to inspect the values of y_train and y_test
+
+```
+
+### Building an XGBoost Model
+
 Now that you have prepared the data for modeling, you can use XGBoost to build a model that can accurately classify wine quality based on the features of the wine!
 
-The API for xgboost is purposefully written to mirror the same structure as other models in scikit-learn.  
+The API for `xgboost` is purposefully written to mirror the same structure as other models in scikit-learn.  
 
 
 ```python
