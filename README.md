@@ -20,7 +20,7 @@ To install XGBoost, follow these steps:
 
 1. Open up a new terminal window 
 2. Activate your conda environment
-3. Run `conda install py-xgboost`. You must use `conda` to install this package -- currently, it cannot be installed using `pip`  
+3. Run `conda install xgboost`. You must use `conda` to install this package -- currently, it cannot be installed using `pip`  
 4. Once the installation has completed, run the cell below to verify that everything worked 
 
 
@@ -45,6 +45,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 import warnings
 warnings.filterwarnings('ignore')
 %matplotlib inline
@@ -60,14 +61,17 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 import warnings
 warnings.filterwarnings('ignore')
 %matplotlib inline
 ```
 
+### Loading the Data
+
 The dataset we'll be using for this lab is currently stored in the file `'winequality-red.csv'`.  
 
-In the cell below, use Pandas to import the dataset into a dataframe, and inspect the `.head()` of the dataframe to ensure everything loaded correctly. 
+In the cell below, use pandas to import the dataset into a dataframe, and inspect the `.head()` of the dataframe to ensure everything loaded correctly. 
 
 
 ```python
@@ -202,6 +206,8 @@ For this lab, our target column will be `'quality'`.  That makes this a multicla
 
 This means that we need to store our target variable separately from the dataset, and then split the data and labels into training and test sets that we can use for cross-validation. 
 
+### Splitting the Data
+
 In the cell below:
 
 - Assign the `'quality'` column to `y` 
@@ -225,9 +231,112 @@ X = df.drop(columns=['quality'], axis=1)
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 ```
 
+### Preprocessing the Data
+
+These are the current target values:
+
+
+```python
+y_train.value_counts().sort_index()
+```
+
+
+```python
+# __SOLUTION__
+y_train.value_counts().sort_index()
+```
+
+
+
+
+    3      9
+    4     40
+    5    517
+    6    469
+    7    151
+    8     13
+    Name: quality, dtype: int64
+
+
+
+XGBoost requires that classification categories be integers that count up from 0, not starting at 3. Therefore you should instantiate a `LabelEncoder` ([documentation here](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html)) and convert both `y_train` and `y_test` into arrays containing label encoded values (i.e. integers that count up from 0).
+
+
+```python
+# Instantiate the encoder
+encoder = None
+
+# Fit and transform the training data
+
+
+# Transform the test data
+
+```
+
+
+```python
+# __SOLUTION__
+# Instantiate the encoder
+encoder = LabelEncoder()
+
+# Fit and transform the training data
+y_train = pd.Series(encoder.fit_transform(y_train))
+
+# Transform the test data
+y_test = pd.Series(encoder.transform(y_test))
+```
+
+Confirm that the new values start at 0 instead of 3:
+
+
+```python
+# Your code here to inspect the values of y_train and y_test
+
+```
+
+
+```python
+# __SOLUTION__
+y_train.value_counts().sort_index()
+```
+
+
+
+
+    0      9
+    1     40
+    2    517
+    3    469
+    4    151
+    5     13
+    dtype: int64
+
+
+
+
+```python
+# __SOLUTION__
+y_test.value_counts().sort_index()
+```
+
+
+
+
+    0      1
+    1     13
+    2    164
+    3    169
+    4     48
+    5      5
+    dtype: int64
+
+
+
+### Building an XGBoost Model
+
 Now that you have prepared the data for modeling, you can use XGBoost to build a model that can accurately classify wine quality based on the features of the wine!
 
-The API for xgboost is purposefully written to mirror the same structure as other models in scikit-learn.  
+The API for `xgboost` is purposefully written to mirror the same structure as other models in scikit-learn.  
 
 
 ```python
@@ -270,8 +379,8 @@ print('Training Accuracy: {:.4}%'.format(training_accuracy * 100))
 print('Validation accuracy: {:.4}%'.format(test_accuracy * 100))
 ```
 
-    Training Accuracy: 80.9%
-    Validation accuracy: 63.5%
+    Training Accuracy: 100.0%
+    Validation accuracy: 65.5%
 
 
 ## Tuning XGBoost
