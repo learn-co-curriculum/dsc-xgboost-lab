@@ -12,16 +12,13 @@ You will be able to:
 
 ## Installing XGBoost
 
-Run this lab on your local computer.
-
 The XGBoost model is not currently included in scikit-learn, so we'll have to install it on our own.  To install XGBoost, you'll need to use `pip`. 
 
 To install XGBoost, follow these steps:
 
-1. Open up a new terminal window 
-2. Activate your conda environment
-3. Run `pip install xgboost`
-4. Once the installation has completed, run the cell below to verify that everything worked 
+1. Create a new notebook cell below
+2. Run `pip install xgboost`
+3. Once the installation has completed, run the cell below to verify that everything worked 
 
 
 ```python
